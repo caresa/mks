@@ -18,16 +18,38 @@ class Cookbook
 	end
 	def recipe_ingredients
 		@recipes.each do |x|
-			puts "These are the ingredients for #{x.title} : #{x.ingredients}"
+			puts "These are the ingredients for "" #{x.title} : #{x.ingredients}"
 		end
 	end
 	def print_cookbook
 		@recipes.each do |x|
-			puts "Recipe: #{x.title}"
-			puts "Ingredients: #{x.ingredients.join(",")}"
-			puts "Steps: #{x.steps.join(",")}"
+			puts "#{x.title}"
+			puts "Ingredients: " 
+			puts x.ingredients.map.with_index(1){|x, i| i.to_s + ". " + x}
+			puts "Steps: "
+			puts x.steps.map.with_index(1){|x, i| i.to_s + ". " + x}
 		end
 	end
+	def search
+		puts "Please enter the title of the recipe you want to search for"
+		userInput = gets.chomp
+		 @recipes.each do |x|
+		 	if userInput == x.title 
+		 		puts "Here is the recipe for #{x.title}."
+		 		puts "Ingredients: ", x.ingredients.map.with_index(1){|x, i| i.to_s + ". " + x}
+		 		puts "Steps: ", x.steps.map.with_index(1){|x, i| i.to_s + ". " + x}
+		 		return
+		 	end
+		 end
+ 		puts "#{userInput} is not in the Cookbook"
+	end
+	def remove
+		puts "Enter the title of the recipe you would like to delete"
+		userInput = gets.chomp
+		@recipes.delete_if { |x| x.title == userInput}
+		puts "You deleted #{userInput}"
+	end
+
 end
 
 
